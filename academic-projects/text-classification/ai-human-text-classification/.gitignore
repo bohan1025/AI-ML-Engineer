@@ -1,0 +1,6 @@
+
+.DS_Store
+Models/svm_test_0.38.csv
+data/domain1_train.json
+*.json
+data/sample.csv

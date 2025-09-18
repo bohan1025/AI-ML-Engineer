@@ -1,0 +1,20 @@
+---
+ansiple_python_interpreter: /usr/bin/python3
+ansible_user: ubuntu
+ansible_ssh_private_key_file: ~/.ssh/your_private_key.pem
+ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+remote_working_directory: /home/ubuntu/COMP90024
+remote_working_directory_big_data: /home/ubuntu/COMP90024/COMP90024
+repository_name: comp90024-project2
+git_repo: /home/ubuntu/COMP90024/comp90024-project2
+couchdb_image: ibmcom/couchdb3:latest
+couchdb_user: group6
+couchdb_pass: 'YOUR_COUCHDB_PASSWORD'
+couchdb_cookie: 'YOUR_COUCHDB_COOKIE'
+couchdb_uuid: 'YOUR_COUCHDB_UUID'
+cluster_name: '_cluster_setup'
+couchdb_container_name: 'couchdb_'
+couchdb_port: 5984
+couchdb_db_name: "large_twitter"
+couchdb_data_dir: "/home/ubuntu/data/db"
+localhost_ip: 'YOUR_LOCALHOST_IP'

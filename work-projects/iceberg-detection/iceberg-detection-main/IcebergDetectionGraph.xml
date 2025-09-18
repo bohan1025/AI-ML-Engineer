@@ -1,0 +1,186 @@
+<graph id="Graph">
+  <version>1.0</version>
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <useAdvancedOptions>false</useAdvancedOptions>
+      <file>C:\Users\33610\Cours\Master 2023 semester 1\MAST90106 Data Science Project\IcebergDetection\SAR_Images_SAFE\S1A_EW_GRDM_1SDH_20230212T135159_20230212T135259_047203_05A9F4_17F5.SAFE.zip</file>
+      <copyMetadata>true</copyMetadata>
+      <bandNames/>
+      <pixelRegion>0,0,10503,10135</pixelRegion>
+      <maskNames/>
+    </parameters>
+  </node>
+  <node id="Speckle-Filter">
+    <operator>Speckle-Filter</operator>
+    <sources>
+      <sourceProduct refid="Land-Sea-Mask"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands/>
+      <filter>Lee Sigma</filter>
+      <filterSizeX>3</filterSizeX>
+      <filterSizeY>3</filterSizeY>
+      <dampingFactor>2</dampingFactor>
+      <estimateENL>true</estimateENL>
+      <enl>1.0</enl>
+      <numLooksStr>1</numLooksStr>
+      <windowSize>7x7</windowSize>
+      <targetWindowSizeStr>3x3</targetWindowSizeStr>
+      <sigmaStr>0.9</sigmaStr>
+      <anSize>50</anSize>
+    </parameters>
+  </node>
+  <node id="Object-Discrimination">
+    <operator>Object-Discrimination</operator>
+    <sources>
+      <sourceProduct refid="AdaptiveThresholding"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <minTargetSizeInMeter>50.0</minTargetSizeInMeter>
+      <maxTargetSizeInMeter>600.0</maxTargetSizeInMeter>
+    </parameters>
+  </node>
+  <node id="AdaptiveThresholding">
+    <operator>AdaptiveThresholding</operator>
+    <sources>
+      <sourceProduct refid="Speckle-Filter"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <targetWindowSizeInMeter>50</targetWindowSizeInMeter>
+      <guardWindowSizeInMeter>500.0</guardWindowSizeInMeter>
+      <backgroundWindowSizeInMeter>800.0</backgroundWindowSizeInMeter>
+      <pfa>6.5</pfa>
+      <estimateBackground>false</estimateBackground>
+    </parameters>
+  </node>
+  <node id="Calibration">
+    <operator>Calibration</operator>
+    <sources>
+      <sourceProduct refid="ThermalNoiseRemoval"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands/>
+      <auxFile>Product Auxiliary File</auxFile>
+      <externalAuxFile/>
+      <outputImageInComplex>false</outputImageInComplex>
+      <outputImageScaleInDb>false</outputImageScaleInDb>
+      <createGammaBand>false</createGammaBand>
+      <createBetaBand>false</createBetaBand>
+      <selectedPolarisations/>
+      <outputSigmaBand>true</outputSigmaBand>
+      <outputGammaBand>false</outputGammaBand>
+      <outputBetaBand>false</outputBetaBand>
+    </parameters>
+  </node>
+  <node id="Land-Sea-Mask">
+    <operator>Land-Sea-Mask</operator>
+    <sources>
+      <sourceProduct refid="Calibration"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands/>
+      <landMask>true</landMask>
+      <useSRTM>true</useSRTM>
+      <geometry/>
+      <invertGeometry>false</invertGeometry>
+      <shorelineExtension>0</shorelineExtension>
+    </parameters>
+  </node>
+  <node id="ThermalNoiseRemoval">
+    <operator>ThermalNoiseRemoval</operator>
+    <sources>
+      <sourceProduct refid="Apply-Orbit-File"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <selectedPolarisations/>
+      <removeThermalNoise>true</removeThermalNoise>
+      <outputNoise>false</outputNoise>
+      <reIntroduceThermalNoise>false</reIntroduceThermalNoise>
+    </parameters>
+  </node>
+  <node id="Apply-Orbit-File">
+    <operator>Apply-Orbit-File</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <orbitType>Sentinel Precise (Auto Download)</orbitType>
+      <polyDegree>3</polyDegree>
+      <continueOnFail>false</continueOnFail>
+    </parameters>
+  </node>
+  <node id="Ellipsoid-Correction-GG">
+    <operator>Ellipsoid-Correction-GG</operator>
+    <sources>
+      <sourceProduct refid="Object-Discrimination"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands/>
+      <imgResamplingMethod>BILINEAR_INTERPOLATION</imgResamplingMethod>
+      <mapProjection>PROJCS[&quot;WGS 84 / Antarctic Polar Stereographic&quot;, &#xd;
+  GEOGCS[&quot;WGS 84&quot;, &#xd;
+    DATUM[&quot;World Geodetic System 1984&quot;, &#xd;
+      SPHEROID[&quot;WGS 84&quot;, 6378137.0, 298.257223563, AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]], &#xd;
+      AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]], &#xd;
+    PRIMEM[&quot;Greenwich&quot;, 0.0, AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]], &#xd;
+    UNIT[&quot;degree&quot;, 0.017453292519943295], &#xd;
+    AXIS[&quot;Geodetic longitude&quot;, EAST], &#xd;
+    AXIS[&quot;Geodetic latitude&quot;, NORTH], &#xd;
+    AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]], &#xd;
+  PROJECTION[&quot;Polar Stereographic (variant B)&quot;], &#xd;
+  PARAMETER[&quot;central_meridian&quot;, 0.0], &#xd;
+  PARAMETER[&quot;Standard_Parallel_1&quot;, -71.0], &#xd;
+  PARAMETER[&quot;false_easting&quot;, 0.0], &#xd;
+  PARAMETER[&quot;false_northing&quot;, 0.0], &#xd;
+  UNIT[&quot;m&quot;, 1.0], &#xd;
+  AXIS[&quot;Easting&quot;, &quot;North along 90 deg East&quot;], &#xd;
+  AXIS[&quot;Northing&quot;, &quot;North along 0 deg&quot;], &#xd;
+  AUTHORITY[&quot;EPSG&quot;,&quot;3031&quot;]]</mapProjection>
+    </parameters>
+  </node>
+  <node id="Write(3)">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="Ellipsoid-Correction-GG"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>C:\Users\33610\Cours\Master 2023 semester 1\MAST90106 Data Science Project\IcebergDetection\SNAP_Images\S1A_EW_GRDM_1SDH_20230212T135159_20230212T135259_047203_05A9F4_17F5_Orb_NR_Cal_Spk_THR_SHP_EC.tif</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <applicationData id="Presentation">
+    <Description/>
+    <node id="Read">
+            <displayPosition x="4.0" y="36.0"/>
+    </node>
+    <node id="Speckle-Filter">
+      <displayPosition x="125.0" y="91.0"/>
+    </node>
+    <node id="Object-Discrimination">
+      <displayPosition x="106.0" y="239.0"/>
+    </node>
+    <node id="AdaptiveThresholding">
+      <displayPosition x="105.0" y="167.0"/>
+    </node>
+    <node id="Calibration">
+      <displayPosition x="445.0" y="70.0"/>
+    </node>
+    <node id="Land-Sea-Mask">
+      <displayPosition x="267.0" y="91.0"/>
+    </node>
+    <node id="ThermalNoiseRemoval">
+      <displayPosition x="210.0" y="37.0"/>
+    </node>
+    <node id="Apply-Orbit-File">
+      <displayPosition x="86.0" y="37.0"/>
+    </node>
+    <node id="Ellipsoid-Correction-GG">
+      <displayPosition x="103.0" y="305.0"/>
+    </node>
+    <node id="Write(3)">
+      <displayPosition x="325.0" y="305.0"/>
+    </node>
+  </applicationData>
+</graph>

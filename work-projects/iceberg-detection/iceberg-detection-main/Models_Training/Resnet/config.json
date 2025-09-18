@@ -1,0 +1,24 @@
+[
+    {
+        "imagefile_paths": [
+            "sample/all_images/S1A_EW_GRDM_1SDH_20230118T131019_D15B_S_1.tif/S1A_EW_GRDM_1SDH_20230118T131019_D15B_S_1.tif", 
+            "sample/all_images/S1A_EW_GRDM_1SDH_20230209T150434_264D_S_1.tif/S1A_EW_GRDM_1SDH_20230209T150434_264D_S_1.tif",
+            "sample/all_images/S1A_EW_GRDM_1SDH_20230212T135259_06D2_S_1.tif/S1A_EW_GRDM_1SDH_20230212T135259_06D2_S_1.tif"
+        ],
+        "imagefile_paths_after_speckle_filter": [
+            "sample/after_filter/S1A_EW_GRDM_1SDH_20230118T131019_D15B_S_1_Spk.tif",
+            "sample/after_filter/S1A_EW_GRDM_1SDH_20230209T150434_264D_S_1_Spk.tif"
+        ],
+        "shapefile_paths": [
+            "sample/all_shapes/S1A_EW_GRDM_1SDH_20230118T131019_20230118T131123_046838_059DBE_D15B/S1A_EW_GRDM_1SDH_20230118T131019_20230118T131123_046838_059DBE_D15B.shp", 
+            "sample/all_shapes/S1A_EW_GRDM_1SDH_20230209T150434_20230209T150539_047160_05A886_264D/S1A_EW_GRDM_1SDH_20230209T150434_20230209T150539_047160_05A886_264D.shp",
+            "sample/all_shapes/S1A_EW_GRDM_1SDH_20230212T135259_20230212T135341_047203_05A9F4_06D2/S1A_EW_GRDM_1SDH_20230212T135259_20230212T135341_047203_05A9F4_06D2.shp"
+        ],
+        "pxl_range": 15,
+        "icb_no_icb_ratio": 1,
+
+        "test_imagefile_path": "sample/all_images/S1A_EW_GRDM_1SDH_20230118T131123_84EF_S_1.tif/S1A_EW_GRDM_1SDH_20230118T131123_84EF_S_1.tif",
+        "test_shapefile_path": "sample/all_shapes/S1A_EW_GRDM_1SDH_20230118T131123_20230118T131232_046838_059DBE_84EF/S1A_EW_GRDM_1SDH_20230118T131123_20230118T131232_046838_059DBE_84EF.shp",
+        "model_name": "resnet"
+    }
+]
