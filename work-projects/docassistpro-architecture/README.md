@@ -30,34 +30,6 @@
 - **Accuracy**: 97% accuracy on public test datasets
 - **Scalability**: Designed for enterprise-level document volumes
 
-## 🔧 **Technical Implementation**
-
-### **RAG System Architecture**
-```python
-# My contribution: RAG system implementation
-class RAGSystem:
-    def __init__(self):
-        self.vector_store = ChromaDB()
-        self.llm_client = OpenAI()
-        
-    def query_documents(self, question: str) -> Answer:
-        # Semantic search + LLM generation
-        relevant_chunks = self.vector_search(question)
-        context = self.build_context(relevant_chunks)
-        answer = self.llm_client.generate(question, context)
-        return Answer(answer, sources=relevant_chunks)
-
-# Document processing pipeline
-class DocumentProcessor:
-    def process_document(self, file: UploadFile) -> ProcessedDocument:
-        # Multi-stage document processing
-        raw_content = self.extract_text(file)
-        structured_data = self.parse_structure(raw_content)
-        chunks = self.create_chunks(structured_data)
-        embeddings = self.generate_embeddings(chunks)
-        return ProcessedDocument(chunks, embeddings)
-```
-
 ## 📈 **Impact & Results**
 
 - **Efficiency**: 80% reduction in document review time
